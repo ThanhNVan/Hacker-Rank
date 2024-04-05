@@ -1,4 +1,7 @@
-﻿namespace ConsoleApp1;
+﻿using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace ConsoleApp1;
 
 public class Program
 {
@@ -12,12 +15,134 @@ public class Program
 
         //var result = divisibleSumPairs(100, 96, new List<int> { 34, 38, 30, 27, 1, 81, 37, 19, 74, 73, 32, 13, 44, 99, 7, 88, 50, 52, 32, 82, 29, 1, 55, 85, 89, 58, 35, 19, 76, 55, 45, 37, 41, 74, 80, 46, 38, 74, 56, 18, 86, 23, 57, 27, 52, 9, 69, 78, 52, 8, 62, 85, 65, 2, 11, 70, 34, 26, 72, 11, 20, 32, 9, 75, 74, 85, 29, 6, 87, 81, 40, 11, 31, 49, 66, 91, 99, 85, 18, 54, 81, 93, 52, 9, 72, 89, 85, 66, 24, 11, 85, 3, 14, 36, 72, 3, 76, 99, 88, 8, });
 
-        var result = migratoryBirds(new List<int>() { 1, 2, 3, 4, 5, 2, 2, 2, 4, 4, 4, 1 });
+        //var result = migratoryBirds(new List<int>() { 1, 2, 3, 4, 5, 2, 2, 2, 4, 4, 4, 1 });
+        bonAppetit(new List<int> { 3, 10, 2 , 9 }, 10, 12);
 
-        Console.WriteLine(result);
+        // var result = sockMerchant(5, new List<int> { 10, 20, 20, 10, 10, 30, 50, 10, 20 });
+        //Console.WriteLine(result);
         Console.WriteLine("Hello, World!");
 
         Console.ReadLine();
+    }
+    static string catAndMouse(int catA, int catB, int mouseC) {
+
+        var result = string.Empty;
+
+        var dCatA = Math.Abs(catA - mouseC);
+        var dCatB = Math.Abs(catB - mouseC);
+
+        if (dCatA > dCatB) {
+            result = "Cat B";
+        } else if (dCatA < dCatB) {
+            result = "Cat A";
+        } else {
+            result = "Mouse C";
+        }
+
+
+        return result;
+    }
+
+
+    public static int sockMerchant(int n, List<int> ar) {
+        var result = 0;
+
+        var group = ar.GroupBy(x => x).Select( x => new { Key = x.Key, Count = x.Count() });
+
+        foreach (var item in group) {
+            if (item.Count % 2 == 0) {
+                result += item.Count / 2;
+            } else if (item.Count > 2) {
+                result += item.Count / 2;
+            }
+        }
+
+        return result;
+    }
+
+    public static void bonAppetit(List<int> bill, int k, int b) {
+
+        var annaBill = bill.Where(x => x != k);
+
+        var annaSum = annaBill.Sum() / 2;
+
+        if (annaSum == b) {
+            Console.WriteLine("Bon Appetit");
+            return;
+        }
+
+        var charged = bill.Sum() / 2  - annaSum;
+
+        if (charged == 0) {
+            Console.WriteLine("Bon Appetit");
+            return;
+        }
+
+        Console.WriteLine(charged);
+    }
+
+    public static string dayOfProgrammer(int year) {
+        var result = string.Empty;
+
+        if (year < 1918) {
+
+            var isGregorianLeapYear = IsGregorianLeapYear(year);
+            var isJulianLeapYear = IsJulianLeapYear(year);
+            var adding = isJulianLeapYear + isGregorianLeapYear;
+
+            if (isGregorianLeapYear == 1 && isJulianLeapYear == 1) {
+                adding = 1;
+            }
+            else if (isGregorianLeapYear == 1 && isJulianLeapYear == 0) {
+                adding = 0;
+            }
+            else if (isGregorianLeapYear == 0 && isJulianLeapYear == 0) {
+                adding = 0;
+            }
+            else if (isGregorianLeapYear == 0 && isJulianLeapYear == 1) {
+                adding = 0;
+            }
+
+
+            var julianDate = new DateTime(year: year, month: 1, day: 1).AddDays(255 - adding);
+
+            result = $"{julianDate.Day.ToString("00")}.{julianDate.Month.ToString("00")}.{julianDate.Year}";
+            return result;
+        }
+
+        if (year == 1918) {
+            //  var julianDate = new DateTime(year: year, month: 1, day: 1).AddDays(255 - 14);
+
+            // result = $"{julianDate.Day.ToString("00")}.{julianDate.Month.ToString("00")}.{julianDate.Year}";
+            return "26.09.1918";
+        }
+
+
+        var date = new DateTime(year: year, month: 1, day: 1).AddDays(255);
+
+        result = $"{date.Day.ToString("00")}.{date.Month.ToString("00")}.{date.Year}";
+        return result;
+    }
+
+    private static int IsJulianLeapYear(int year) {
+        var result = 0;
+
+        if (year % 4 == 0) {
+            result = 1;
+        }
+
+        return result;
+    }
+
+
+    private static int IsGregorianLeapYear(int year) {
+        var result = 0;
+
+        if (DateTime.IsLeapYear(year)) {
+            result = 1;
+        }
+
+        return result;
     }
 
     public static int migratoryBirds(List<int> arr) {
