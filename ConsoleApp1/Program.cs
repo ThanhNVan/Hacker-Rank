@@ -10,12 +10,32 @@ public class Program
 
         //var result = birthday(new List<int> { 2, 5, 1, 3, 4, 4, 3, 5, 1, 1, 2, 1, 4, 1, 3, 3, 4, 2, 1, }, 18, 7);
 
-        var result = divisibleSumPairs(100, 96, new List<int> { 34, 38, 30, 27, 1, 81, 37, 19, 74, 73, 32, 13, 44, 99, 7, 88, 50, 52, 32, 82, 29, 1, 55, 85, 89, 58, 35, 19, 76, 55, 45, 37, 41, 74, 80, 46, 38, 74, 56, 18, 86, 23, 57, 27, 52, 9, 69, 78, 52, 8, 62, 85, 65, 2, 11, 70, 34, 26, 72, 11, 20, 32, 9, 75, 74, 85, 29, 6, 87, 81, 40, 11, 31, 49, 66, 91, 99, 85, 18, 54, 81, 93, 52, 9, 72, 89, 85, 66, 24, 11, 85, 3, 14, 36, 72, 3, 76, 99, 88, 8, });
+        //var result = divisibleSumPairs(100, 96, new List<int> { 34, 38, 30, 27, 1, 81, 37, 19, 74, 73, 32, 13, 44, 99, 7, 88, 50, 52, 32, 82, 29, 1, 55, 85, 89, 58, 35, 19, 76, 55, 45, 37, 41, 74, 80, 46, 38, 74, 56, 18, 86, 23, 57, 27, 52, 9, 69, 78, 52, 8, 62, 85, 65, 2, 11, 70, 34, 26, 72, 11, 20, 32, 9, 75, 74, 85, 29, 6, 87, 81, 40, 11, 31, 49, 66, 91, 99, 85, 18, 54, 81, 93, 52, 9, 72, 89, 85, 66, 24, 11, 85, 3, 14, 36, 72, 3, 76, 99, 88, 8, });
+
+        var result = migratoryBirds(new List<int>() { 1, 2, 3, 4, 5, 2, 2, 2, 4, 4, 4, 1 });
 
         Console.WriteLine(result);
         Console.WriteLine("Hello, World!");
 
         Console.ReadLine();
+    }
+
+    public static int migratoryBirds(List<int> arr) {
+        var result = 0;
+
+        var countedList = arr.GroupBy(x => x)
+                            .Select( x =>  new { Key = x.Key, Count = x.Count() })
+                            .OrderByDescending(x => x.Count)
+                            .ToList();
+
+        if (countedList[0].Count == countedList[1].Count ) {
+            result = countedList[0].Key <= countedList[1].Key ? countedList[0].Key : countedList[1].Key;
+            return result;
+        }
+
+        result = countedList[0].Key;
+
+        return result;
     }
 
     public static int divisibleSumPairs(int n, int k, List<int> ar) {
