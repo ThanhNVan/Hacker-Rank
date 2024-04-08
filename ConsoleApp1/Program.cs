@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ConsoleApp1;
@@ -16,14 +17,54 @@ public class Program
         //var result = divisibleSumPairs(100, 96, new List<int> { 34, 38, 30, 27, 1, 81, 37, 19, 74, 73, 32, 13, 44, 99, 7, 88, 50, 52, 32, 82, 29, 1, 55, 85, 89, 58, 35, 19, 76, 55, 45, 37, 41, 74, 80, 46, 38, 74, 56, 18, 86, 23, 57, 27, 52, 9, 69, 78, 52, 8, 62, 85, 65, 2, 11, 70, 34, 26, 72, 11, 20, 32, 9, 75, 74, 85, 29, 6, 87, 81, 40, 11, 31, 49, 66, 91, 99, 85, 18, 54, 81, 93, 52, 9, 72, 89, 85, 66, 24, 11, 85, 3, 14, 36, 72, 3, 76, 99, 88, 8, });
 
         //var result = migratoryBirds(new List<int>() { 1, 2, 3, 4, 5, 2, 2, 2, 4, 4, 4, 1 });
-        bonAppetit(new List<int> { 3, 10, 2 , 9 }, 10, 12);
+        //bonAppetit(new List<int> { 3, 10, 2 , 9 }, 10, 12);
 
         // var result = sockMerchant(5, new List<int> { 10, 20, 20, 10, 10, 30, 50, 10, 20 });
         //Console.WriteLine(result);
+
+        var result = countingValleys(8, "DDUUDDUDUUUD");
+        Console.WriteLine(result);
+
+        //var str = @"\E_1\E_11111\E_354534534\M_133123";
+        //var reg = new Regex(@"(\\\w+_\d+)");
+
+        //foreach (var match in reg.Matches(str)) {
+        //    Console.WriteLine(match);
+        //}
         Console.WriteLine("Hello, World!");
 
         Console.ReadLine();
     }
+
+    public static int countingValleys(int steps, string path) {
+        var currentAltitude = 0;
+        var altitudeList = new List<int>();
+        var result = 0;
+
+        for (int i = 0; i < path.Length; i++) {
+            if (path[i].Equals('D')) {
+                currentAltitude--;
+            } else {
+                currentAltitude++;
+            }
+            altitudeList.Add(currentAltitude);
+        }
+
+        for (int i = 0; i < altitudeList.Count; i ++) {
+            try {
+                if (altitudeList[i] == 0 && altitudeList[i-1] < 0) {
+                    result++;
+                }
+            }
+            catch (Exception) {
+
+                continue;
+            }
+        }
+
+        return result;
+    }
+
     static string catAndMouse(int catA, int catB, int mouseC) {
 
         var result = string.Empty;
