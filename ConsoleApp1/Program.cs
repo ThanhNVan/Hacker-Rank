@@ -35,8 +35,9 @@ public class Program {
         //var result = angryProfessor(3, new List<int> {-1, -3, 4,2});
 
         //var result = beautifulDays(13, 45, 3);
+        //var result = viralAdvertising(6);
 
-        var result = viralAdvertising(6);
+        var result = saveThePrisoner(31, 238250965, 2);
 
         Console.WriteLine(result);
         Console.WriteLine("Hello, World!");
@@ -45,9 +46,19 @@ public class Program {
     }
 
 
-    //public static int saveThePrisoner(int n, int m, int s) {
-    //    var noLoop = m % n;
-    //}
+    public static int saveThePrisoner(int n, int m, int s) {
+        var result = 0;
+        var noLoop = m % n;
+
+        result = s + noLoop - 1;
+
+        if (result > n) {
+
+            result = result % n;
+        }
+
+        return result;
+    }
 
     public static int viralAdvertising(int n) {
         var result = 0;
