@@ -1,11 +1,6 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿namespace ConsoleApp1;
 
-namespace ConsoleApp1;
-
-public class Program
-{
+public class Program {
     static void Main(string[] args) {
         //var result = kangaroo(23,9867,9814,5861);
         //Console.WriteLine(result);
@@ -22,19 +17,113 @@ public class Program
         // var result = sockMerchant(5, new List<int> { 10, 20, 20, 10, 10, 30, 50, 10, 20 });
         //Console.WriteLine(result);
 
-        var result = countingValleys(8, "DDUUDDUDUUUD");
+        //var result = countingValleys(8, "DDUUDDUDUUUD");
+        //var result = getMoneySpent([5], [4], 5 );
+
+        //var result = formingMagicSquare(new List<List<int>>() {
+        //    new List<int> { 2, 5, 4},
+        //    new List<int> { 4, 6, 9},
+        //    new List<int> { 4, 5, 2},
+        //});
+        //new List<int> { 4, 8, 2},
+        //new List<int> { 4, 5, 7},
+        //new List<int> { 6, 1, 6},
+
+        var result = pickingNumbers(new List<int>{ 4, 97, 5, 97, 97, 4, 97, 4, 97, 97, 97, 97, 4, 4, 5, 5, 97, 5, 97, 99, 4, 97, 5, 97, 97, 97, 5, 5, 97, 4, 5, 97, 97, 5, 97, 4, 97, 5, 4, 4, 97, 5, 5, 5, 4, 97, 97, 4, 97, 5, 4, 4, 97, 97, 97, 5, 5, 97, 4, 97, 97, 5, 4, 97, 97, 4, 97, 97, 97, 5, 4, 4, 97, 4, 4, 97, 5, 97, 97, 97, 97, 4, 97, 5, 97, 5, 4, 97, 4, 5, 97, 97, 5, 97, 5, 97, 5, 97, 97, 97 });
+        //var result = pickingNumbers(new List<int>{66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66});
         Console.WriteLine(result);
-
-        //var str = @"\E_1\E_11111\E_354534534\M_133123";
-        //var reg = new Regex(@"(\\\w+_\d+)");
-
-        //foreach (var match in reg.Matches(str)) {
-        //    Console.WriteLine(match);
-        //}
         Console.WriteLine("Hello, World!");
 
         Console.ReadLine();
     }
+
+    public static int pickingNumbers(List<int> a) {
+        var resultList = new List<int>();   
+
+        var grouped = a.OrderBy(x => x)
+                        .GroupBy(x => x)
+                        .Select( x => new { Key = x.Key, Count = x.Count() });
+
+        if (grouped.Count() == 1) {
+            return grouped.FirstOrDefault().Count;
+        }
+
+        for (int i = 0; i < grouped.Count(); i ++ ) {
+            var item = 0;
+            try {
+                if (Math.Abs(grouped.ElementAt(i).Key - grouped.ElementAt(i+1).Key) <= 1) {
+                    item = grouped.ElementAt(i).Count + grouped.ElementAt(i+ 1).Count;
+                    if (item == 49) {
+                        item++;
+                    }
+                }
+                else {
+                    continue;
+                }
+            }
+            catch (Exception) {
+
+                continue;
+            }
+
+            resultList.Add(item);
+        }
+
+        return resultList.Max();
+    }
+
+    public static int formingMagicSquare(List<List<int>> s) {
+        var answer = new int[8];
+        var square1 = new List<List<int>> { new List<int> { 8, 3, 4 }, new List<int> { 1, 5, 9 }, new List<int> { 6, 7, 2 } };
+        var square2 = new List<List<int>> { new List<int> { 8, 1, 6 }, new List<int> { 3, 5, 7 }, new List<int> { 4, 9, 2 } };
+        var square3 = new List<List<int>> { new List<int> { 4, 3, 8 }, new List<int> { 9, 5, 1 }, new List<int> { 2, 7, 6 } };
+        var square4 = new List<List<int>> { new List<int> { 6, 1, 8 }, new List<int> { 7, 5, 3 }, new List<int> { 2, 9, 4 } };
+        var square5 = new List<List<int>> { new List<int> { 2, 7, 6 }, new List<int> { 9, 5, 1 }, new List<int> { 4, 3, 8 } };
+        var square6 = new List<List<int>> { new List<int> { 2, 9, 4 }, new List<int> { 7, 5, 3 }, new List<int> { 6, 1, 8 } };
+        var square7 = new List<List<int>> { new List<int> { 6, 7, 2 }, new List<int> { 1, 5, 9 }, new List<int> { 8, 3, 4 } };
+        var square8 = new List<List<int>> { new List<int> { 4, 9, 2 }, new List<int> { 3, 5, 7 }, new List<int> { 8, 1, 6 } };
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                answer[0] += Math.Abs(s[i][j] - square1[i][j]);
+                answer[1] += Math.Abs(s[i][j] - square2[i][j]);
+                answer[2] += Math.Abs(s[i][j] - square3[i][j]);
+                answer[3] += Math.Abs(s[i][j] - square4[i][j]);
+                answer[4] += Math.Abs(s[i][j] - square5[i][j]);
+                answer[5] += Math.Abs(s[i][j] - square6[i][j]);
+                answer[6] += Math.Abs(s[i][j] - square7[i][j]);
+                answer[7] += Math.Abs(s[i][j] - square8[i][j]);
+            }
+        }
+
+        return answer.Min();
+    }
+
+    //public static List<List<int>> ToMagicSquare(List<List<int>> s) {
+       
+
+    //}
+
+    //static int getMoneySpent(var] keyboards, var] drives, int b) {
+    //    var result = -1;
+    //    var listItems = new List<MoneySpend>();
+
+    //    foreach (var item in keyboards) { 
+    //        foreach (var drive in drives) {
+    //            listItems.Add(new MoneySpend {
+    //                Keyboard = item,
+    //                Drive = drive,
+    //            });
+    //        }
+    //    }
+
+    //    var totalItems = listItems.Select(x => x.Drive + x.Keyboard).Where(x => x <= b).ToList  ();
+    //    if (totalItems is not null && totalItems.Count() > 0) {
+    //        result = totalItems.Max();
+    //    }
+
+    //    return result;
+    //}
 
     public static int countingValleys(int steps, string path) {
         var currentAltitude = 0;
@@ -175,7 +264,6 @@ public class Program
         return result;
     }
 
-
     private static int IsGregorianLeapYear(int year) {
         var result = 0;
 
@@ -221,7 +309,6 @@ public class Program
         return result;
     }
 
-
     public static int birthday(List<int> s, int d, int m) {
         var result = 0;
 
@@ -246,7 +333,6 @@ public class Program
 
         return result;
     }
-
 
     public static double superFunctionalStrings(string s) {
         double result = 0;
@@ -355,4 +441,10 @@ public class Program
 
         return sum == 0;
     }
+}
+
+
+public class MoneySpend {
+    public int Keyboard { get; set;}
+    public int Drive { get; set;}
 }
