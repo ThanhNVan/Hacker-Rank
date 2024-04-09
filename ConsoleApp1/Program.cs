@@ -29,12 +29,90 @@ public class Program {
         //new List<int> { 4, 5, 7},
         //new List<int> { 6, 1, 6},
 
-        var result = pickingNumbers(new List<int>{ 4, 97, 5, 97, 97, 4, 97, 4, 97, 97, 97, 97, 4, 4, 5, 5, 97, 5, 97, 99, 4, 97, 5, 97, 97, 97, 5, 5, 97, 4, 5, 97, 97, 5, 97, 4, 97, 5, 4, 4, 97, 5, 5, 5, 4, 97, 97, 4, 97, 5, 4, 4, 97, 97, 97, 5, 5, 97, 4, 97, 97, 5, 4, 97, 97, 4, 97, 97, 97, 5, 4, 4, 97, 4, 4, 97, 5, 97, 97, 97, 97, 4, 97, 5, 97, 5, 4, 97, 4, 5, 97, 97, 5, 97, 5, 97, 5, 97, 97, 97 });
+        //var result = pickingNumbers(new List<int>{ 4, 97, 5, 97, 97, 4, 97, 4, 97, 97, 97, 97, 4, 4, 5, 5, 97, 5, 97, 99, 4, 97, 5, 97, 97, 97, 5, 5, 97, 4, 5, 97, 97, 5, 97, 4, 97, 5, 4, 4, 97, 5, 5, 5, 4, 97, 97, 4, 97, 5, 4, 4, 97, 97, 97, 5, 5, 97, 4, 97, 97, 5, 4, 97, 97, 4, 97, 97, 97, 5, 4, 4, 97, 4, 4, 97, 5, 97, 97, 97, 97, 4, 97, 5, 97, 5, 4, 97, 4, 5, 97, 97, 5, 97, 5, 97, 5, 97, 97, 97 });
         //var result = pickingNumbers(new List<int>{66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66});
+
+        //var result = angryProfessor(3, new List<int> {-1, -3, 4,2});
+
+        //var result = beautifulDays(13, 45, 3);
+
+        var result = viralAdvertising(6);
+
         Console.WriteLine(result);
         Console.WriteLine("Hello, World!");
 
         Console.ReadLine();
+    }
+
+
+    //public static int saveThePrisoner(int n, int m, int s) {
+    //    var noLoop = m % n;
+    //}
+
+    public static int viralAdvertising(int n) {
+        var result = 0;
+        var shared = 5;
+
+        var cumuList = new List<int>();
+
+        for (int i = 1; i <= n; i++) {
+            int liked = shared / 2;
+            if (i == 1) {
+                cumuList.Add(liked);
+            } else {
+                cumuList.Add(liked + cumuList[i - 2]);
+            }
+            shared = liked * 3;
+        }
+
+        result = cumuList.Last();
+
+        return result;
+    }
+
+    public static int beautifulDays(int i, int j, int k) {
+        var result = 0;
+
+        var listDay = new List<int>();
+
+        for (int start = i; start <= j; start++) {
+            listDay.Add(start);
+        }
+
+        foreach (int day in listDay) {
+            if (isBeatifulDay(day, k)) {
+                result++;
+            }
+        }
+
+        return result;
+    }
+
+    public static bool isBeatifulDay(int day, int divisor) {
+        var result = false;
+
+        result = (day - ReverseInt(day)) % divisor == 0;
+
+        return result;
+    }
+
+    public static int ReverseInt(int num) {
+        int result = 0;
+        while (num > 0) {
+            result = result * 10 + num % 10;
+            num /= 10;
+        }
+        return result;
+    }
+
+    public static string angryProfessor(int k, List<int> a) {
+        var result = string.Empty;
+
+        var isCancelled = a.Count(x => x <= 0) < k;
+
+        result = isCancelled ? "YES" : "NO";
+
+        return result;
     }
 
     public static int pickingNumbers(List<int> a) {
@@ -98,11 +176,6 @@ public class Program {
 
         return answer.Min();
     }
-
-    //public static List<List<int>> ToMagicSquare(List<List<int>> s) {
-       
-
-    //}
 
     //static int getMoneySpent(var] keyboards, var] drives, int b) {
     //    var result = -1;
