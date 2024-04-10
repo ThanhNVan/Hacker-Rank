@@ -87,8 +87,8 @@ public class Program {
             } else {
                 ranked.Add(player[i]);
 
-                var addRankedGroup = ranked.GroupBy(x => x).OrderByDescending(x => x.Key);
-                var item = addRankedGroup.TakeWhile(x => x.Key != player[i]).Count();
+                var addRankedGroup = ranked.GroupBy(x => x).OrderByDescending(x => x.Key).ToList();
+                var item = addRankedGroup.FindIndex(x => x.Key == player[i]);
                 result.Add(item + 1);
                 ranked.Remove(player[i]);
             }
