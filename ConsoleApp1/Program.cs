@@ -43,12 +43,44 @@ public class Program {
 
         // var result = howManyGames(45, 53, 40, 6366); 159
         //var result = howManyGames(91, 36, 61, 6678);
-        var result = timeInWords(5, 30);
+        //var result = timeInWords(5, 30);
+
+
+        //var result = timeInWords(5, 30);
+
+        var result = chocolateFeast(46985, 24, 680);
+
         Console.WriteLine(result);
         Console.WriteLine("Hello, World!");
 
         Console.ReadLine();
     }
+
+    public static int chocolateFeast(int initMoney, int cost, int valueWrapper) {
+        var result = 1;
+        
+        if (initMoney < cost) {
+            return 0;
+        }
+
+        if (initMoney == cost) {
+            return result;
+        }
+
+        var initBars = initMoney / cost;
+        result = initBars;
+        var notUsedWrapper = result;
+
+        while (notUsedWrapper >= valueWrapper) {
+
+            result += notUsedWrapper / valueWrapper; 
+
+            notUsedWrapper = notUsedWrapper % valueWrapper + notUsedWrapper / valueWrapper;
+        }
+
+        return result;
+    }
+
 
     public static string timeInWords(int h, int m) {
         var result = string.Empty;
