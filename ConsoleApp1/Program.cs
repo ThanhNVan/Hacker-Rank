@@ -47,13 +47,47 @@ public class Program {
 
 
         //var result = timeInWords(5, 30);
+        //var result = chocolateFeast(46985, 24, 680);
 
-        var result = chocolateFeast(46985, 24, 680);
+        var result = libraryFine(9, 6, 2015, 6, 6, 2015);
+        //var result = libraryFine(15, 7, 2014, 1, 7, 2015);
+        //var result = libraryFine(31, 8, 2004, 20, 1, 2015);
 
         Console.WriteLine(result);
         Console.WriteLine("Hello, World!");
 
         Console.ReadLine();
+    }
+
+    public static int libraryFine(int returnDay, int returnMonth, int returnYear, int dueDay, int dueMonth, int dueYear) {
+        var result = 0;
+
+        // year dif
+        if (dueYear < returnYear) {
+            result = 10_000;
+            return result;
+        }
+
+        // get dates
+        var returnDate = new DateTime(year: returnYear, month: returnMonth, day: returnDay);
+        var dueDate = new DateTime(year: dueYear, month: dueMonth, day: dueDay);
+
+        // on times
+        if (returnDate <= dueDate) {
+            return 0;
+        }
+
+        // month dif
+        if (dueMonth < returnMonth && returnYear == dueYear && returnDate > dueDate) {
+            result = (returnMonth - dueMonth) * 500;
+            return result;
+        }
+        
+        // day dif
+        var difDate = (returnDay - dueDay);
+        result = difDate * 15;
+
+        return result;
     }
 
     public static int chocolateFeast(int initMoney, int cost, int valueWrapper) {
