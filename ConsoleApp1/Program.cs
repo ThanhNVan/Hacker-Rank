@@ -36,8 +36,11 @@ public class Program {
 
         //var result = beautifulDays(13, 45, 3);
         //var result = viralAdvertising(6);
+        //var result = saveThePrisoner(31, 238250965, 2);
+        //var result = designerPdfViewer(new List<int> { 1, 3, 1, 3, 1, 4, 1, 3, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7 }, "zaba");
+        //var result = utopianTree(4);
 
-        var result = saveThePrisoner(31, 238250965, 2);
+        var result = minimumDistances(new List<int> { 1, 2, 3, 4, 10 });
 
         Console.WriteLine(result);
         Console.WriteLine("Hello, World!");
@@ -45,7 +48,77 @@ public class Program {
         Console.ReadLine();
     }
 
+    public static int howManyGames(int p, int d, int m, int s) {
+        // Return the number of games you can buy
+        var result = 0;
 
+
+
+
+        return result;
+    }
+
+    public static int minimumDistances(List<int> a) {
+        var result = -1;
+
+        var keyAndPosition = new Dictionary<int, List<int>>();
+
+        for (var i = 0; i < a.Count; i ++ ) {
+            if (keyAndPosition.Keys.Contains(a[i])) {
+                keyAndPosition[a[i]].Add(i);
+            } else {
+                keyAndPosition.Add(a[i], new List<int>() { i});
+            }
+        }
+
+        var duplicatedElements = keyAndPosition.Where(x => x.Value.Count > 1);
+
+        var isNoMatching = duplicatedElements is null || duplicatedElements.Count() < 1;
+        if (isNoMatching) {
+            return result;
+        }
+
+        result = duplicatedElements.Min(x => x.Value[1]- x.Value[0]);
+
+        return result;
+    }
+
+
+    public static int utopianTree(int n) {
+        var result = 1;
+
+        if (n == 0) {
+            return result;
+        }
+
+        for (int i = 1; i <= n; i ++) {
+            if (i % 2 == 0) {
+                result += 1;
+            } else {
+
+                result *= 2;
+            }
+        }
+
+        return result;
+    }
+
+    public static int designerPdfViewer(List<int> h, string word) {
+        var result = 0;
+
+        var width = word.Length;
+        var heightList = new List<int>();
+
+        foreach (char item in word.ToCharArray()) {
+            var index = char.ToUpper(item) - 65;
+            heightList.Add(h[index]);
+        }
+
+        var heigh = heightList.Max(h => h);
+        result = width * heigh;
+
+        return result;
+    }
     public static int saveThePrisoner(int n, int m, int s) {
         var result = 0;
         var noLoop = m % n;
@@ -531,4 +604,10 @@ public class Program {
 public class MoneySpend {
     public int Keyboard { get; set;}
     public int Drive { get; set;}
+}
+
+public class KeyAndPosition {
+    public int Key { get; set;}
+
+    public List<int> Positions { get; set;}
 }
