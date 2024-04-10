@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp1;
+﻿using System.Numerics;
+
+namespace ConsoleApp1;
 
 public class Program {
     static void Main(string[] args) {
@@ -49,14 +51,61 @@ public class Program {
         //var result = timeInWords(5, 30);
         //var result = chocolateFeast(46985, 24, 680);
 
-        var result = libraryFine(9, 6, 2015, 6, 6, 2015);
+        //var result = libraryFine(9, 6, 2015, 6, 6, 2015);
         //var result = libraryFine(15, 7, 2014, 1, 7, 2015);
         //var result = libraryFine(31, 8, 2004, 20, 1, 2015);
+
+        //extraLongFactorials(25);
+
+        //var result = climbingLeaderboard( new List<int> {100, 90, 90, 80 , 75, 60}, new List<int> { 50, 65, 77, 90, 102 });
+        var result = climbingLeaderboard( new List<int> {100, 100, 50, 40 , 40, 20, 10}, new List<int> { 5, 25, 50, 120 });
+
+        foreach (int i in result) { 
+            Console.WriteLine(i);
+        }
 
         Console.WriteLine(result);
         Console.WriteLine("Hello, World!");
 
         Console.ReadLine();
+    }
+
+    public static List<int> climbingLeaderboard(List<int> ranked, List<int> player) {
+        
+        var result = new List<int>();
+
+        var totalRank = ranked.Distinct().Count() + 1;
+
+        var minScore = ranked.Min(i => i);
+        var maxScore = ranked.Max(x => x);
+
+        for (int i = 0; i < player.Count(); i++) {
+            if (player[i] < minScore) {
+                result.Add(totalRank);
+            } else if (player[i] > maxScore) {
+                result.Add(1);
+            } else {
+                ranked.Add(player[i]);
+
+                var addRankedGroup = ranked.GroupBy(x => x).OrderByDescending(x => x.Key);
+                var item = addRankedGroup.TakeWhile(x => x.Key != player[i]).Count();
+                result.Add(item + 1);
+                ranked.Remove(player[i]);
+            }
+
+        }
+
+        return result;
+    }
+
+    public static void extraLongFactorials(int n) {
+        BigInteger result = BigInteger.One;
+
+        for (int i = 1; i <= n; i++) {
+            result *= i;
+        }
+
+        Console.WriteLine(result);
     }
 
     public static int libraryFine(int returnDay, int returnMonth, int returnYear, int dueDay, int dueMonth, int dueYear) {
