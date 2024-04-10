@@ -39,23 +39,132 @@ public class Program {
         //var result = saveThePrisoner(31, 238250965, 2);
         //var result = designerPdfViewer(new List<int> { 1, 3, 1, 3, 1, 4, 1, 3, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7 }, "zaba");
         //var result = utopianTree(4);
+        //var result = minimumDistances(new List<int> { 1, 2, 3, 4, 10 });
 
-        var result = minimumDistances(new List<int> { 1, 2, 3, 4, 10 });
-
+        // var result = howManyGames(45, 53, 40, 6366); 159
+        //var result = howManyGames(91, 36, 61, 6678);
+        var result = timeInWords(5, 30);
         Console.WriteLine(result);
         Console.WriteLine("Hello, World!");
 
         Console.ReadLine();
     }
 
+    public static string timeInWords(int h, int m) {
+        var result = string.Empty;
+
+        var minutes = string.Empty;
+        var hours = string.Empty;
+
+        if (m == 0) {
+            minutes = " o' clock";
+            hours = ones[h];
+            result = string.Concat(hours, minutes);
+            return result;
+        }
+
+        if (m < 15) {
+            if (m == 1) {
+
+                minutes = $"{ones[1]} minute past ";
+            } else {
+                minutes = $"{ones[m]} minutes past ";
+            }
+            hours = ones[h];
+            result = string.Concat(minutes, hours);
+            return result;
+        }
+
+        if (m == 15) {
+           
+            minutes = $"quarter past ";
+            
+            hours = ones[h];
+            result = string.Concat(minutes, hours);
+            return result;
+        }
+
+        if (m < 30) {
+            if (m < 20) {
+                minutes = $"{ones[m]} minutes past ";
+            } else {
+                minutes = $"{tens[m / 10]} {ones[m % 10]} minutes past ";
+            }
+            hours = ones[h];
+            result = string.Concat(minutes, hours);
+            return result;
+        }
+
+        if (m == 30) {
+
+            minutes = $"half past ";
+
+            hours = ones[h];
+            result = string.Concat(minutes, hours);
+            return result;
+        }
+
+        m = 60 - m;
+        h++;
+
+        if (m == 15) {
+            minutes = $"quarter to ";
+
+            hours = ones[h];
+            result = string.Concat(minutes, hours);
+            return result;
+        }
+
+        if (m < 20) {
+            minutes = $"{ones[m]} minutes to ";
+        }
+        else {
+            minutes = $"{tens[m / 10]} {ones[m % 10]} minutes to ";
+        }
+        hours = ones[h];
+        result = string.Concat(minutes, hours);
+        return result;
+    }
+
     public static int howManyGames(int p, int d, int m, int s) {
         // Return the number of games you can buy
         var result = 0;
 
+        if (p > s) {
+            return 0;
+        }
 
+        if (p == s) {
+            return 1;
+        }
 
+        var listGameCost = new List<int>();
+        listGameCost.Add(p);
+        var currentGameCost = p - d;
+        if (currentGameCost <= m ) {
+            currentGameCost = m;
+        }
+        while (true) {
+            listGameCost.Add(currentGameCost);
+            if (listGameCost.Sum() > s) {
+                listGameCost = listGameCost.SkipLast(1).ToList();
+                break;
+            }
 
-        return result;
+            if (listGameCost.Sum() == s) {
+                break;
+            }
+
+            currentGameCost = currentGameCost - d;
+
+            if (currentGameCost <= m) {
+                currentGameCost = m;
+            }
+        }
+
+        var sum = listGameCost.Sum();
+
+        return listGameCost.Count;
     }
 
     public static int minimumDistances(List<int> a) {
@@ -598,6 +707,13 @@ public class Program {
 
         return sum == 0;
     }
+
+    private static string[] ones = {
+    "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+    "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
+};
+
+    private static string[] tens = { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
 }
 
 
@@ -611,3 +727,5 @@ public class KeyAndPosition {
 
     public List<int> Positions { get; set;}
 }
+
+
