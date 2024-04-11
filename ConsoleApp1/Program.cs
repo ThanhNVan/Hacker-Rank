@@ -70,9 +70,14 @@ public class Program
         //var result = hurdleRace(4, new List<int> {1, 6, 3, 5, 2 });
         //var result = saveThePrisoner(176, 719643761, 1);
         //var result = findDigits(1012);
+        //var result = findDigits(1012);
         #endregion
 
-        var result = findDigits(1012);
+        var result = cutTheSticks(new List<int> { 5, 4, 4, 2, 2, 8 });
+
+        foreach (int i in result) {
+            Console.WriteLine(i);
+        }
 
         Console.WriteLine(result);
 
@@ -84,6 +89,34 @@ public class Program
     public static List<int> cutTheSticks(List<int> arr) {
         var result = new List<int> { };
 
+        while (true) {
+            var shortest = arr.Min(x => x);
+            var cutSticks = arr.Count();
+
+            arr = arr.Where( x => x != shortest).Select(x => x - shortest).ToList();
+
+            result.Add((int)cutSticks);
+
+            if (arr.Count == 1) {
+                result.Add(1);
+                break;
+            }
+            if (arr.Count <= 0) {
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    private static int RoundToUp(int value, int divisor) {
+        var result = 0;
+        if (value % divisor != 0) {
+            result = value % divisor + 1;
+            return result;
+        }
+
+        result = value / divisor;
         return result;
     }
 
