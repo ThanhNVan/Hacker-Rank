@@ -66,9 +66,11 @@ public class Program
         //foreach (int i in result) { 
         //    Console.WriteLine(i);
         //}
+
+        //var result = hurdleRace(4, new List<int> {1, 6, 3, 5, 2 });
         #endregion
 
-        var result = hurdleRace(1, new List<int> { });
+        var result = saveThePrisoner(176, 719643761, 1);
 
         Console.WriteLine(result);
 
@@ -76,13 +78,22 @@ public class Program
         Console.ReadLine();
     }
 
+
+    #region [ Completed Problems ]
     public static int hurdleRace(int k, List<int> height) {
         var result = 0;
+
+        var unArchivableHeight = height.Where(h => h > k).Select(x => x - k);
+
+        if (unArchivableHeight is null || unArchivableHeight.Count() == 0) {
+            return result;
+        }
+
+        result = unArchivableHeight.Max(x => x);
 
         return result;
     }
 
-    #region [ Completed Problems ]
     public static void extraLongFactorials(int n) {
         BigInteger result = BigInteger.One;
 
@@ -839,15 +850,15 @@ public class Program
         return result;
     }
 
-    public static int saveThePrisoner(int n, int m, int s) {
+    public static int saveThePrisoner(int numPrisoners, int numSweets, int numStart) {
         var result = 0;
-        var noLoop = m % n;
+        var noLoop = numSweets % numPrisoners;
 
-        result = s + noLoop - 1;
+        result = numStart + noLoop - 1;
 
-        if (result > n) {
+        if (result > numPrisoners) {
 
-            result = result % n;
+            result = result % numPrisoners;
         }
 
         return result;
