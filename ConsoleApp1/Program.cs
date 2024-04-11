@@ -71,10 +71,10 @@ public class Program
         //var result = saveThePrisoner(176, 719643761, 1);
         //var result = findDigits(1012);
         //var result = findDigits(1012);
+        //var result = cutTheSticks(new List<int> { 5, 4, 4, 2, 2, 8 });
+
         #endregion
-
-        var result = cutTheSticks(new List<int> { 5, 4, 4, 2, 2, 8 });
-
+        var result = permutationEquation(new List<int> { });
         foreach (int i in result) {
             Console.WriteLine(i);
         }
@@ -86,6 +86,14 @@ public class Program
     }
 
 
+    public static List<int> permutationEquation(List<int> p) {
+        var result = new List<int> { };
+
+        return result;
+    }
+
+
+    #region [ Completed Problems ]
     public static List<int> cutTheSticks(List<int> arr) {
         var result = new List<int> { };
 
@@ -109,18 +117,6 @@ public class Program
         return result;
     }
 
-    private static int RoundToUp(int value, int divisor) {
-        var result = 0;
-        if (value % divisor != 0) {
-            result = value % divisor + 1;
-            return result;
-        }
-
-        result = value / divisor;
-        return result;
-    }
-
-    #region [ Completed Problems ]
     public static int findDigits(int n) {
         var result = 0;
         var listDigit = n.ToString().Select(x => int.Parse(x.ToString()));
