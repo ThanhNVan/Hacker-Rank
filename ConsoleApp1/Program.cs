@@ -68,9 +68,11 @@ public class Program
         //}
 
         //var result = hurdleRace(4, new List<int> {1, 6, 3, 5, 2 });
+        //var result = saveThePrisoner(176, 719643761, 1);
+        //var result = findDigits(1012);
         #endregion
 
-        var result = saveThePrisoner(176, 719643761, 1);
+        var result = findDigits(1012);
 
         Console.WriteLine(result);
 
@@ -79,7 +81,33 @@ public class Program
     }
 
 
+    public static List<int> cutTheSticks(List<int> arr) {
+        var result = new List<int> { };
+
+        return result;
+    }
+
     #region [ Completed Problems ]
+    public static int findDigits(int n) {
+        var result = 0;
+        var listDigit = n.ToString().Select(x => int.Parse(x.ToString()));
+
+        foreach (var digit in listDigit) {
+            try {
+                if (n % digit == 0) {
+                    result++;
+                }
+            }
+            catch (Exception) {
+
+                continue;
+            }
+
+        }
+
+        return result;  
+    }
+
     public static int hurdleRace(int k, List<int> height) {
         var result = 0;
 
