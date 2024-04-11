@@ -74,11 +74,20 @@ public class Program
         //var result = cutTheSticks(new List<int> { 5, 4, 4, 2, 2, 8 });
 
         //var result = permutationEquation(new List<int> { 5, 2, 1, 3, 4});
-        //foreach (int i in result) {
-        //    Console.WriteLine(i);
-        //}
+        //var result = taumBday(3, 3, 1, 9, 2);
+        //var result = taumBday(443463982, 833847400, 429734889, 628664883, 610875522);
+        // var result = taumBday(905844164, 493785831, 81651073, 116752762, 136082804);
+
+        //var result = taumBday(751886489, 142963601, 250217357, 463527251, 29858345);
+        //var result = taumBday(336, 387, 493, 6650, 1422);
+        //var result = taumBday(3, 6, 9, 1, 1);
         #endregion
-        var result = taumBday(1, 1, 1, 1, 1);
+
+        var result = acmTeam(new List<string> { });
+
+        foreach (int i in result) {
+            Console.WriteLine(i);
+        }
 
         Console.WriteLine(result);
 
@@ -86,14 +95,46 @@ public class Program
         Console.ReadLine();
     }
 
+    public static List<int> acmTeam(List<string> topic) {
+        var result = new List<int>();
 
+        return result;
+    }
 
 
     #region [ Completed Problems ]
-    public static long taumBday(int b, int w, int bc, int wc, int z) {
-        var result = 0;
+    public static long taumBday(int blackGift, int whiteGift, int blackCosts, int whiteCosts, int convertCosts) {
+        BigInteger blackGifts = blackGift;
+        BigInteger whiteGifts = whiteGift;
+        BigInteger blackCost = blackCosts;
+        BigInteger whiteCost = whiteCosts;
+        BigInteger convertCost = convertCosts;
 
-        return result;
+        BigInteger result;
+        BigInteger.TryParse(Math.Abs((decimal)blackCost - (decimal)whiteCost).ToString(), out BigInteger difCost);
+
+        if (convertCost >= difCost) {
+            BigInteger black = blackGifts * blackCost;
+
+            BigInteger white = whiteGifts * whiteCost; 
+
+            result = black + white;
+
+            return long.Parse(result.ToString());
+        }
+
+        BigInteger lowestCost = whiteCost > blackCost ? blackCost : whiteCost;
+        BigInteger totalConvertCost;
+        if (blackGifts == whiteGifts) {
+            totalConvertCost = convertCost* whiteGifts;
+        } else {
+            BigInteger difCostGift = whiteCosts > blackCosts ? whiteGift : blackGift;
+            totalConvertCost = convertCost * difCostGift;
+        }
+
+        result = lowestCost * (blackGifts + whiteGifts) + totalConvertCost;
+
+        return long.Parse(result.ToString());
     }
 
     public static List<int> permutationEquation(List<int> inputList) {
