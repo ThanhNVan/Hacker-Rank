@@ -73,11 +73,12 @@ public class Program
         //var result = findDigits(1012);
         //var result = cutTheSticks(new List<int> { 5, 4, 4, 2, 2, 8 });
 
+        //var result = permutationEquation(new List<int> { 5, 2, 1, 3, 4});
+        //foreach (int i in result) {
+        //    Console.WriteLine(i);
+        //}
         #endregion
-        var result = permutationEquation(new List<int> { });
-        foreach (int i in result) {
-            Console.WriteLine(i);
-        }
+        var result = taumBday(1, 1, 1, 1, 1);
 
         Console.WriteLine(result);
 
@@ -86,14 +87,31 @@ public class Program
     }
 
 
-    public static List<int> permutationEquation(List<int> p) {
-        var result = new List<int> { };
+
+
+    #region [ Completed Problems ]
+    public static long taumBday(int b, int w, int bc, int wc, int z) {
+        var result = 0;
 
         return result;
     }
 
+    public static List<int> permutationEquation(List<int> inputList) {
+        var result = new List<int> { };
 
-    #region [ Completed Problems ]
+        var numberDictionary = inputList.Select((value, position) => new { value, position }).ToDictionary(x => x.value, x => x.position + 1);
+
+        for (int i = 0; i < inputList.Count(); i++) {
+            var index = i + 1;
+
+            var middleNumber = numberDictionary[index];
+            var final = numberDictionary[middleNumber];
+            result.Add(final);
+        }
+
+        return result;
+    }
+
     public static List<int> cutTheSticks(List<int> arr) {
         var result = new List<int> { };
 
