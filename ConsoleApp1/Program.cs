@@ -1,9 +1,12 @@
 ﻿using System.Numerics;
 
-namespace ConsoleApp1;
+namespace HackerRank;
 
-public class Program {
+public class Program
+{
     static void Main(string[] args) {
+
+        #region [ Results ]
         //var result = kangaroo(23,9867,9814,5861);
         //Console.WriteLine(result);
 
@@ -58,46 +61,28 @@ public class Program {
         //extraLongFactorials(25);
 
         //var result = climbingLeaderboard( new List<int> {100, 90, 90, 80 , 75, 60}, new List<int> { 50, 65, 77, 90, 102 });
-        var result = climbingLeaderboard( new List<int> {100, 100, 50, 40 , 40, 20, 10}, new List<int> { 5, 25, 50, 120 });
+        //var result = climbingLeaderboard( new List<int> {100, 100, 50, 40 , 40, 20, 10}, new List<int> { 5, 25, 50, 120 });
 
-        foreach (int i in result) { 
-            Console.WriteLine(i);
-        }
+        //foreach (int i in result) { 
+        //    Console.WriteLine(i);
+        //}
+        #endregion
+
+        var result = hurdleRace(1, new List<int> { });
 
         Console.WriteLine(result);
-        Console.WriteLine("Hello, World!");
 
+        Console.WriteLine("\nThis Is ThanhNVan's HackerRank Playground.");
         Console.ReadLine();
     }
 
-    public static List<int> climbingLeaderboard(List<int> ranked, List<int> player) {
-        
-        var result = new List<int>();
-
-        var totalRank = ranked.Distinct().Count() + 1;
-
-        var minScore = ranked.Min(i => i);
-        var maxScore = ranked.Max(x => x);
-
-        for (int i = 0; i < player.Count(); i++) {
-            if (player[i] < minScore) {
-                result.Add(totalRank);
-            } else if (player[i] > maxScore) {
-                result.Add(1);
-            } else {
-                ranked.Add(player[i]);
-
-                var addRankedGroup = ranked.GroupBy(x => x).OrderByDescending(x => x.Key).ToList();
-                var item = addRankedGroup.FindIndex(x => x.Key == player[i]);
-                result.Add(item + 1);
-                ranked.Remove(player[i]);
-            }
-
-        }
+    public static int hurdleRace(int k, List<int> height) {
+        var result = 0;
 
         return result;
     }
 
+    #region [ Completed Problems ]
     public static void extraLongFactorials(int n) {
         BigInteger result = BigInteger.One;
 
@@ -131,7 +116,7 @@ public class Program {
             result = (returnMonth - dueMonth) * 500;
             return result;
         }
-        
+
         // day dif
         var difDate = (returnDay - dueDay);
         result = difDate * 15;
@@ -141,7 +126,7 @@ public class Program {
 
     public static int chocolateFeast(int initMoney, int cost, int valueWrapper) {
         var result = 1;
-        
+
         if (initMoney < cost) {
             return 0;
         }
@@ -156,14 +141,13 @@ public class Program {
 
         while (notUsedWrapper >= valueWrapper) {
 
-            result += notUsedWrapper / valueWrapper; 
+            result += notUsedWrapper / valueWrapper;
 
             notUsedWrapper = notUsedWrapper % valueWrapper + notUsedWrapper / valueWrapper;
         }
 
         return result;
     }
-
 
     public static string timeInWords(int h, int m) {
         var result = string.Empty;
@@ -182,7 +166,8 @@ public class Program {
             if (m == 1) {
 
                 minutes = $"{ones[1]} minute past ";
-            } else {
+            }
+            else {
                 minutes = $"{ones[m]} minutes past ";
             }
             hours = ones[h];
@@ -191,9 +176,9 @@ public class Program {
         }
 
         if (m == 15) {
-           
+
             minutes = $"quarter past ";
-            
+
             hours = ones[h];
             result = string.Concat(minutes, hours);
             return result;
@@ -202,7 +187,8 @@ public class Program {
         if (m < 30) {
             if (m < 20) {
                 minutes = $"{ones[m]} minutes past ";
-            } else {
+            }
+            else {
                 minutes = $"{tens[m / 10]} {ones[m % 10]} minutes past ";
             }
             hours = ones[h];
@@ -256,7 +242,7 @@ public class Program {
         var listGameCost = new List<int>();
         listGameCost.Add(p);
         var currentGameCost = p - d;
-        if (currentGameCost <= m ) {
+        if (currentGameCost <= m) {
             currentGameCost = m;
         }
         while (true) {
@@ -287,11 +273,12 @@ public class Program {
 
         var keyAndPosition = new Dictionary<int, List<int>>();
 
-        for (var i = 0; i < a.Count; i ++ ) {
+        for (var i = 0; i < a.Count; i++) {
             if (keyAndPosition.Keys.Contains(a[i])) {
                 keyAndPosition[a[i]].Add(i);
-            } else {
-                keyAndPosition.Add(a[i], new List<int>() { i});
+            }
+            else {
+                keyAndPosition.Add(a[i], new List<int>() { i });
             }
         }
 
@@ -302,12 +289,10 @@ public class Program {
             return result;
         }
 
-        result = duplicatedElements.Min(x => x.Value[1]- x.Value[0]);
+        result = duplicatedElements.Min(x => x.Value[1] - x.Value[0]);
 
         return result;
     }
-
-
     public static int utopianTree(int n) {
         var result = 1;
 
@@ -315,10 +300,11 @@ public class Program {
             return result;
         }
 
-        for (int i = 1; i <= n; i ++) {
+        for (int i = 1; i <= n; i++) {
             if (i % 2 == 0) {
                 result += 1;
-            } else {
+            }
+            else {
 
                 result *= 2;
             }
@@ -343,19 +329,6 @@ public class Program {
 
         return result;
     }
-    public static int saveThePrisoner(int n, int m, int s) {
-        var result = 0;
-        var noLoop = m % n;
-
-        result = s + noLoop - 1;
-
-        if (result > n) {
-
-            result = result % n;
-        }
-
-        return result;
-    }
 
     public static int viralAdvertising(int n) {
         var result = 0;
@@ -367,7 +340,8 @@ public class Program {
             int liked = shared / 2;
             if (i == 1) {
                 cumuList.Add(liked);
-            } else {
+            }
+            else {
                 cumuList.Add(liked + cumuList[i - 2]);
             }
             shared = liked * 3;
@@ -424,21 +398,21 @@ public class Program {
     }
 
     public static int pickingNumbers(List<int> a) {
-        var resultList = new List<int>();   
+        var resultList = new List<int>();
 
         var grouped = a.OrderBy(x => x)
                         .GroupBy(x => x)
-                        .Select( x => new { Key = x.Key, Count = x.Count() });
+                        .Select(x => new { Key = x.Key, Count = x.Count() });
 
         if (grouped.Count() == 1) {
             return grouped.FirstOrDefault().Count;
         }
 
-        for (int i = 0; i < grouped.Count(); i ++ ) {
+        for (int i = 0; i < grouped.Count(); i++) {
             var item = 0;
             try {
-                if (Math.Abs(grouped.ElementAt(i).Key - grouped.ElementAt(i+1).Key) <= 1) {
-                    item = grouped.ElementAt(i).Count + grouped.ElementAt(i+ 1).Count;
+                if (Math.Abs(grouped.ElementAt(i).Key - grouped.ElementAt(i + 1).Key) <= 1) {
+                    item = grouped.ElementAt(i).Count + grouped.ElementAt(i + 1).Count;
                     if (item == 49) {
                         item++;
                     }
@@ -514,15 +488,16 @@ public class Program {
         for (int i = 0; i < path.Length; i++) {
             if (path[i].Equals('D')) {
                 currentAltitude--;
-            } else {
+            }
+            else {
                 currentAltitude++;
             }
             altitudeList.Add(currentAltitude);
         }
 
-        for (int i = 0; i < altitudeList.Count; i ++) {
+        for (int i = 0; i < altitudeList.Count; i++) {
             try {
-                if (altitudeList[i] == 0 && altitudeList[i-1] < 0) {
+                if (altitudeList[i] == 0 && altitudeList[i - 1] < 0) {
                     result++;
                 }
             }
@@ -544,9 +519,11 @@ public class Program {
 
         if (dCatA > dCatB) {
             result = "Cat B";
-        } else if (dCatA < dCatB) {
+        }
+        else if (dCatA < dCatB) {
             result = "Cat A";
-        } else {
+        }
+        else {
             result = "Mouse C";
         }
 
@@ -554,16 +531,16 @@ public class Program {
         return result;
     }
 
-
     public static int sockMerchant(int n, List<int> ar) {
         var result = 0;
 
-        var group = ar.GroupBy(x => x).Select( x => new { Key = x.Key, Count = x.Count() });
+        var group = ar.GroupBy(x => x).Select(x => new { Key = x.Key, Count = x.Count() });
 
         foreach (var item in group) {
             if (item.Count % 2 == 0) {
                 result += item.Count / 2;
-            } else if (item.Count > 2) {
+            }
+            else if (item.Count > 2) {
                 result += item.Count / 2;
             }
         }
@@ -582,7 +559,7 @@ public class Program {
             return;
         }
 
-        var charged = bill.Sum() / 2  - annaSum;
+        var charged = bill.Sum() / 2 - annaSum;
 
         if (charged == 0) {
             Console.WriteLine("Bon Appetit");
@@ -659,11 +636,11 @@ public class Program {
         var result = 0;
 
         var countedList = arr.GroupBy(x => x)
-                            .Select( x =>  new { Key = x.Key, Count = x.Count() })
+                            .Select(x => new { Key = x.Key, Count = x.Count() })
                             .OrderByDescending(x => x.Count)
                             .ToList();
 
-        if (countedList[0].Count == countedList[1].Count ) {
+        if (countedList[0].Count == countedList[1].Count) {
             result = countedList[0].Key <= countedList[1].Key ? countedList[0].Key : countedList[1].Key;
             return result;
         }
@@ -829,18 +806,58 @@ public class Program {
 };
 
     private static string[] tens = { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+    #endregion
+
+    #region [ Half Completed Problems ]
+    public static List<int> climbingLeaderboard(List<int> ranked, List<int> player) {
+
+        var result = new List<int>();
+
+        var totalRank = ranked.Distinct().Count() + 1;
+
+        var minScore = ranked.Min(i => i);
+        var maxScore = ranked.Max(x => x);
+
+        for (int i = 0; i < player.Count(); i++) {
+            if (player[i] < minScore) {
+                result.Add(totalRank);
+            }
+            else if (player[i] > maxScore) {
+                result.Add(1);
+            }
+            else {
+                ranked.Add(player[i]);
+
+                var addRankedGroup = ranked.GroupBy(x => x).OrderByDescending(x => x.Key).ToList();
+                var item = addRankedGroup.FindIndex(x => x.Key == player[i]);
+                result.Add(item + 1);
+                ranked.Remove(player[i]);
+            }
+
+        }
+
+        return result;
+    }
+
+    public static int saveThePrisoner(int n, int m, int s) {
+        var result = 0;
+        var noLoop = m % n;
+
+        result = s + noLoop - 1;
+
+        if (result > n) {
+
+            result = result % n;
+        }
+
+        return result;
+    }
+    #endregion
 }
 
-
-public class MoneySpend {
-    public int Keyboard { get; set;}
-    public int Drive { get; set;}
+public class MoneySpend
+{
+    public int Keyboard { get; set; }
+    public int Drive { get; set; }
 }
-
-public class KeyAndPosition {
-    public int Key { get; set;}
-
-    public List<int> Positions { get; set;}
-}
-
 
