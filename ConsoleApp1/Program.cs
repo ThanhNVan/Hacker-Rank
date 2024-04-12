@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.ComponentModel.Design;
+using System.Numerics;
 using HackerRankSolution;
 
 namespace HackerRank;
@@ -88,23 +89,78 @@ public class Program
         //    Console.WriteLine(i);
         //}
         #endregion
-        var result = workbook(1, 2, new List<int> { });
+        //var result = workbook(5, 3, new List<int> { 4, 2, 6, 1, 10 });
 
-        Console.WriteLine(result);
+        kaprekarNumbers(100, 1);
+
+        //Console.WriteLine(result);
 
         Console.WriteLine("\nThis Is ThanhNVan's HackerRank Playground.");
         Console.ReadLine();
     }
 
-    public static int workbook(int n, int k, List<int> arr) {
+    public static void kaprekarNumbers(int p, int q) {
+
+    }
+    #region [ Completed Problems ]
+    public static int workbook(int numChapter, int maxPerPage, List<int> chapter) {
         var result = 0;
+        if (numChapter <= 0) {
+            return result;
+        }
+
+        if (maxPerPage == 1) {
+            return chapter[0];
+        }
+
+        var totalPage = chapter.Select(x => RoundToUp(x, maxPerPage)).Sum();
+
+        var pageChapter = new Dictionary<int, List<int>>();
+        for (int i = 1; i <= totalPage + 1; i ++) {
+            pageChapter.Add(i, new List<int>());
+        }
+
+        var currentPage = 1;
+
+        foreach (var problem in chapter) {
+            for (int i = 1; i <= problem; i ++) {
+
+                if(currentPage > totalPage) {
+                    break;
+                }
+
+                if (i % maxPerPage == 0) {
+                    pageChapter[currentPage].Add(i);
+                    currentPage++;
+                    continue;
+                }
+
+                pageChapter[currentPage].Add(i);
+
+                if (i == problem) {
+                    currentPage++;
+                }
+            }
+        }
+
+        result = pageChapter.Where(x => x.Value.Contains(x.Key)).Count();
 
         return result;
     }
 
+    private static int RoundToUp(int number, int divisor) {
+        var result = 0;
 
+        if (number % divisor == 0) {
+            result = number / divisor;
+            return result;
+        }
 
-    #region [ Completed Problems ]
+        result = number / divisor + 1;
+
+        return result;
+    }
+
     public static List<int> acmTeam(List<string> topic) {
         var result = new List<int>();
 
