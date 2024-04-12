@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using HackerRankSolution;
 
 namespace HackerRank;
 
@@ -81,13 +82,13 @@ public class Program
         //var result = taumBday(751886489, 142963601, 250217357, 463527251, 29858345);
         //var result = taumBday(336, 387, 493, 6650, 1422);
         //var result = taumBday(3, 6, 9, 1, 1);
+        //var result = acmTeam(TestData.acmTeam);
+
+        //foreach (int i in result) {
+        //    Console.WriteLine(i);
+        //}
         #endregion
-
-        var result = acmTeam(new List<string> { });
-
-        foreach (int i in result) {
-            Console.WriteLine(i);
-        }
+        var result = workbook(1, 2, new List<int> { });
 
         Console.WriteLine(result);
 
@@ -95,14 +96,58 @@ public class Program
         Console.ReadLine();
     }
 
-    public static List<int> acmTeam(List<string> topic) {
-        var result = new List<int>();
+    public static int workbook(int n, int k, List<int> arr) {
+        var result = 0;
 
         return result;
     }
 
 
+
     #region [ Completed Problems ]
+    public static List<int> acmTeam(List<string> topic) {
+        var result = new List<int>();
+
+        var participants = topic.Select((value, index) => new { 
+                                    value, 
+                                    index })
+                                    .ToDictionary(x => x.index + 1, x => ToKnowledgeTopic( x.value));
+        // key: known Topic, value: number of teams
+        var resultDic = new Dictionary<int, int>();
+        resultDic.Add(0, 0);
+
+        for (int i = 0; i < topic[0].Count(); i++) {
+            resultDic.Add(i + 1, 0);
+        }
+
+        for (int i = 1; i <= participants.Count + 1; i++) {
+            for (int j = i + 1; j <= participants.Count; j ++) {
+                var knowTopic = participants[i].Union(participants[j]);
+               
+                resultDic[knowTopic.Count()]++;
+                
+            }
+        }
+
+        resultDic = resultDic.Where(x => x.Value > 0).ToDictionary(x => x.Key, x => x.Value);
+        result.Add(resultDic.Keys.Max());
+        result.Add(resultDic[result[0]]);
+
+        return result;
+    }
+
+    private static List<int> ToKnowledgeTopic(string input) {
+        var result = new List<int> { };
+
+        for(int i = 0; i < input.Length; i++) {
+            if (input[i] == '1') {
+                result.Add(i + 1);
+            }
+        }
+
+        return result;
+    }
+
     public static long taumBday(int blackGift, int whiteGift, int blackCosts, int whiteCosts, int convertCosts) {
         BigInteger blackGifts = blackGift;
         BigInteger whiteGifts = whiteGift;
