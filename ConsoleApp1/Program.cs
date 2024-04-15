@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Numerics;
-using HackerRankSolution;
+﻿using System.Numerics;
 
 namespace HackerRank;
 
@@ -88,8 +86,8 @@ public class Program
         //foreach (int i in result) {
         //    Console.WriteLine(i);
         //}
-        #endregion
         //var result = workbook(5, 3, new List<int> { 4, 2, 6, 1, 10 });
+        #endregion
 
         kaprekarNumbers(100, 1);
 
@@ -116,16 +114,16 @@ public class Program
         var totalPage = chapter.Select(x => RoundToUp(x, maxPerPage)).Sum();
 
         var pageChapter = new Dictionary<int, List<int>>();
-        for (int i = 1; i <= totalPage + 1; i ++) {
+        for (int i = 1; i <= totalPage + 1; i++) {
             pageChapter.Add(i, new List<int>());
         }
 
         var currentPage = 1;
 
         foreach (var problem in chapter) {
-            for (int i = 1; i <= problem; i ++) {
+            for (int i = 1; i <= problem; i++) {
 
-                if(currentPage > totalPage) {
+                if (currentPage > totalPage) {
                     break;
                 }
 
@@ -164,10 +162,11 @@ public class Program
     public static List<int> acmTeam(List<string> topic) {
         var result = new List<int>();
 
-        var participants = topic.Select((value, index) => new { 
-                                    value, 
-                                    index })
-                                    .ToDictionary(x => x.index + 1, x => ToKnowledgeTopic( x.value));
+        var participants = topic.Select((value, index) => new {
+            value,
+            index
+        })
+                                    .ToDictionary(x => x.index + 1, x => ToKnowledgeTopic(x.value));
         // key: known Topic, value: number of teams
         var resultDic = new Dictionary<int, int>();
         resultDic.Add(0, 0);
@@ -177,11 +176,11 @@ public class Program
         }
 
         for (int i = 1; i <= participants.Count + 1; i++) {
-            for (int j = i + 1; j <= participants.Count; j ++) {
+            for (int j = i + 1; j <= participants.Count; j++) {
                 var knowTopic = participants[i].Union(participants[j]);
-               
+
                 resultDic[knowTopic.Count()]++;
-                
+
             }
         }
 
@@ -195,7 +194,7 @@ public class Program
     private static List<int> ToKnowledgeTopic(string input) {
         var result = new List<int> { };
 
-        for(int i = 0; i < input.Length; i++) {
+        for (int i = 0; i < input.Length; i++) {
             if (input[i] == '1') {
                 result.Add(i + 1);
             }
@@ -217,7 +216,7 @@ public class Program
         if (convertCost >= difCost) {
             BigInteger black = blackGifts * blackCost;
 
-            BigInteger white = whiteGifts * whiteCost; 
+            BigInteger white = whiteGifts * whiteCost;
 
             result = black + white;
 
@@ -227,8 +226,9 @@ public class Program
         BigInteger lowestCost = whiteCost > blackCost ? blackCost : whiteCost;
         BigInteger totalConvertCost;
         if (blackGifts == whiteGifts) {
-            totalConvertCost = convertCost* whiteGifts;
-        } else {
+            totalConvertCost = convertCost * whiteGifts;
+        }
+        else {
             BigInteger difCostGift = whiteCosts > blackCosts ? whiteGift : blackGift;
             totalConvertCost = convertCost * difCostGift;
         }
@@ -261,7 +261,7 @@ public class Program
             var shortest = arr.Min(x => x);
             var cutSticks = arr.Count();
 
-            arr = arr.Where( x => x != shortest).Select(x => x - shortest).ToList();
+            arr = arr.Where(x => x != shortest).Select(x => x - shortest).ToList();
 
             result.Add((int)cutSticks);
 
@@ -294,7 +294,7 @@ public class Program
 
         }
 
-        return result;  
+        return result;
     }
 
     public static int hurdleRace(int k, List<int> height) {
